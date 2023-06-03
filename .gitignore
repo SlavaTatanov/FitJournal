@@ -1,3 +1,4 @@
 FitJournal/FitJournal/settings.py
+FitJournal/db.sqlite3
 .idea
 **/__pycache__
