@@ -1,0 +1,27 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+   <!-- Bootstrap CSS core -->
+  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <title>{{ title }}</title>
+
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar bg-primary" data-bs-theme="dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">FitJournal</a>
+    </div>
+  </nav>
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"> </script>
+
+</body>
+</html>

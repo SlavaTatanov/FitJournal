@@ -1,5 +1,8 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse("Главная страница")
+    context = {
+        'title': 'test title from context'
+    }
+    return render(request, 'trainings/index.html', context=context)
