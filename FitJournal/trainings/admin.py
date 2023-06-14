@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from trainings.models import Exercise, TypeExercise
+
+# Регистрируем наши модели в админке
+for item in [Exercise, TypeExercise]:
+    admin.site.register(item)
