@@ -1,18 +1,41 @@
 from django.db import models
 
 
-class TypeExercise(models.Model):
+class BaseNamedModel(models.Model):
+    """
+    Базовая абстрактная модель которая содержит имя сущности
+    """
+    name = models.CharField(max_length=128)
+
+    def __str__(self):
+        """
+        Дружелюбная реализация строкового представления
+        """
+        return self.name
+
+    class Meta:
+        abstract = True
+
+
+class BaseNamedDescriptionModel(BaseNamedModel):
+    """
+    Базовая абстрактная модель которая содержит имя и описание сущности
+    """
+    description = models.TextField()
+
+    class Meta:
+        abstract = True
+
+
+class TypeExercise(BaseNamedDescriptionModel):
     """
     Класс описывающий типы упражнений
     """
-    name = models.CharField(max_length=128)  # Название типа упражнений
-    description = models.TextField()  # Описание типа упражнений
+    pass
 
 
-class Exercise(models.Model):
+class Exercise(BaseNamedDescriptionModel):
     """
     Модель описывающая упражнение
     """
-    name = models.CharField(max_length=128)  # Название упражнения
-    description = models.TextField()  # Описание упражнения
     type = models.ForeignKey(to=TypeExercise, on_delete=models.PROTECT, default=0)
