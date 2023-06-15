@@ -3,6 +3,8 @@ from django.shortcuts import render
 
 def index(request):
     context = {
-        'title': 'test title from context'
+        'title': "title"
     }
     return render(request, 'trainings/index.html', context=context)
+
+

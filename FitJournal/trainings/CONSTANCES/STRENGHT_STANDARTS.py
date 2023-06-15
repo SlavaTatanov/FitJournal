@@ -1,0 +1,1 @@
+RSS = "Realistic Strenght Standarts"
