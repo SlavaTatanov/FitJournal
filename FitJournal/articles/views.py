@@ -1,8 +1,9 @@
 from django.shortcuts import render
+from django.http import HttpRequest
 from articles.models import BaseArticle
 
 
-def about(request):
+def about(request: HttpRequest):
     body_text = BaseArticle.objects.filter(slug='about')
     context = {
         'title': "О нас",
