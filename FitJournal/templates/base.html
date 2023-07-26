@@ -3,43 +3,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <!-- Этот тег отвечает за масштабирование контента в зависимости от девайса  -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="UTF-8">
+    <!-- Этот тег отвечает за масштабирование контента в зависимости от девайса  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-   <!-- Bootstrap CSS core -->
-  <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Bootstrap CSS core -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
-  <title>{{title}}</title>
+    <title>{{title}}</title>
 
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-sm bg-primary" data-bs-theme="dark">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-sm bg-primary" data-bs-theme="dark">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'index' %}">FitJournal</a>
+        <a class="navbar-brand" href="{% url 'index' %}">FitJournal</a>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Калькуляторы
+          </a>
+          <ul class="dropdown-menu shadow p-3 mb-5 bg-white ">
+            <li><a class="dropdown-item text-black" href="{% url 'tools:calculator_1rm' %}">Одноповторный максимум</a></li>
+          </ul>
+        </div>
     </div>
-  </nav>
+</nav>
 
-  <!-- Content -->
-  <div class="container mt-4">
-     {% block content %} {% endblock %}
-  </div>
+<!-- Content -->
+<div class="container mt-4">
+    {% block content %} {% endblock %}
+</div>
 
-  <!-- Footer -->
-  <div class="flex bg-primary" style="position: absolute; bottom: 0; width: 100%">
+<!-- Footer -->
+<div class="flex bg-primary" style="position: absolute; bottom: 0; width: 100%">
     <div class="container">
-      <footer class="py-3 my-4">
-        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-          <li class="nav-item"><a href="{% url 'about' %}" class="nav-link px-2 text-muted">О нас</a></li>
-          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Политика конфиденциальности</a></li>
-        </ul>
-      </footer>
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li class="nav-item"><a href="{% url 'about' %}" class="nav-link px-2 text-muted">О нас</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Политика конфиденциальности</a></li>
+            </ul>
+        </footer>
     </div>
-  </div>
+</div>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"> </script>
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
 </body>
 </html>
