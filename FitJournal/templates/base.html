@@ -10,21 +10,25 @@
     <!-- Bootstrap CSS core -->
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'custom.css' %}">
+
     <title>{{title}}</title>
 
 </head>
 <body>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-sm bg-primary" data-bs-theme="dark">
-    <div class="container">
+    <div class="container" style="padding-top: 1vh; padding-bottom: 1vh;">
         <a class="navbar-brand" href="{% url 'index' %}">FitJournal</a>
-        <div class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Калькуляторы
-          </a>
-          <ul class="dropdown-menu shadow p-3 mb-5 bg-white ">
-            <li><a class="dropdown-item text-black" href="{% url 'tools:calculator_1rm' %}">Одноповторный максимум</a></li>
-          </ul>
+        <div class="nav-item dropdown text-white">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Калькуляторы
+            </a>
+            <ul class="dropdown-menu shadow p-3 mb-5 bg-white ">
+                <li><a class="dropdown-item" href="{% url 'tools:calculator_1rm' %}">Одноповторный
+                    максимум</a></li>
+            </ul>
         </div>
     </div>
 </nav>
@@ -35,16 +39,12 @@
 </div>
 
 <!-- Footer -->
-<div class="flex bg-primary" style="position: absolute; bottom: 0; width: 100%">
-    <div class="container">
-        <footer class="py-3 my-4">
-            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                <li class="nav-item"><a href="{% url 'about' %}" class="nav-link px-2 text-muted">О нас</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Политика конфиденциальности</a></li>
-            </ul>
-        </footer>
-    </div>
-</div>
+<footer class="sticky-footer bg-primary">
+    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="{% url 'about' %}" class="nav-link px-2 text-muted">О нас</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Политика конфиденциальности</a></li>
+    </ul>
+</footer>
 
 <!-- Bootstrap core JavaScript -->
 <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>

@@ -1,0 +1,23 @@
+body {
+  min-height: 100vh;
+}
+
+.sticky-footer {
+  position: sticky;
+  top: 100%;
+  padding-top: 3vh;
+  padding-bottom: 3vh;
+  padding-left: 10vh;
+  padding-right: 10vh;
+  margin-top: 5vh;
+  margin-bottom: 0px;
+}
+
+.dropdown-item{
+  color: black;
+}
+
+.dropdown-item:hover{
+    background: #0d6efd;
+    color: white;
+}

@@ -1,2 +1,72 @@
 {% extends "base.html" %}
 
+{% block content %}
+<div class="d-grid gap-3">
+    <h1 style="text-align:center; margin-top:10px">Расчет одноповторного максимума</h1>
+    <input class="form-control form-control-lg " type="text" placeholder="Вес в килограммах">
+    <input class="form-control form-control-lg" type="text" placeholder="Количество повторений">
+    <button type="button" class="btn btn-primary" style="width:30%; height:120%; margin-top:20px;">Расчет</button>
+</div>
+<table class="table" style="margin-top:10vh;">
+    <thead>
+    <tr>
+        <th scope="col">Процент от 1RM</th>
+        <th scope="col">Вес</th>
+        <th scope="col">Повторения</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>100%</td>
+        <td></td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>95%</td>
+        <td></td>
+        <td>2</td>
+    </tr>
+    <tr>
+        <td>90%</td>
+        <td></td>
+        <td>4</td>
+    </tr>
+    <tr>
+        <td>85%</td>
+        <td></td>
+        <td>6</td>
+    </tr>
+    <tr>
+        <td>80%</td>
+        <td></td>
+        <td>8</td>
+    </tr>
+     <tr>
+        <td>75%</td>
+        <td></td>
+        <td>10</td>
+    </tr>
+     <tr>
+        <td>70%</td>
+        <td></td>
+        <td>12</td>
+    </tr>
+     <tr>
+        <td>65%</td>
+        <td></td>
+        <td>16</td>
+    </tr>
+     <tr>
+        <td>60%</td>
+        <td></td>
+        <td>20</td>
+    </tr>
+     <tr>
+        <td>50%</td>
+        <td></td>
+        <td>30</td>
+    </tr>
+    </tbody>
+</table>
+
+{% endblock %}
