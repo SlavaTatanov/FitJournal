@@ -1,11 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block custom_js %}
+<script src="{% static 'js/calculator.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 <div class="d-grid gap-3">
     <h1 style="text-align:center; margin-top:10px">Расчет одноповторного максимума</h1>
-    <input class="form-control form-control-lg " type="text" placeholder="Вес в килограммах">
-    <input class="form-control form-control-lg" type="text" placeholder="Количество повторений">
-    <button type="button" class="btn btn-primary" style="width:30%; height:120%; margin-top:20px;">Расчет</button>
+    <input class="form-control form-control-lg" id="weight" type="number" placeholder="Вес в килограммах">
+    <input class="form-control form-control-lg" id="reps" type="number" placeholder="Количество повторений">
+    <button type="button" onclick="get1RM()" class="btn btn-primary" style="width:30%; height:120%; margin-top:20px;">Расчет</button>
 </div>
 <table class="table" style="margin-top:10vh;">
     <thead>
@@ -18,52 +23,52 @@
     <tbody>
     <tr>
         <td>100%</td>
-        <td></td>
+        <td id='rm100'></td>
         <td>1</td>
     </tr>
     <tr>
         <td>95%</td>
-        <td></td>
+        <td id='rm95'></td>
         <td>2</td>
     </tr>
     <tr>
         <td>90%</td>
-        <td></td>
+        <td id='rm90'></td>
         <td>4</td>
     </tr>
     <tr>
         <td>85%</td>
-        <td></td>
+        <td id='rm85'></td>
         <td>6</td>
     </tr>
     <tr>
         <td>80%</td>
-        <td></td>
+        <td id='rm80'></td>
         <td>8</td>
     </tr>
      <tr>
         <td>75%</td>
-        <td></td>
+        <td id='rm75'></td>
         <td>10</td>
     </tr>
      <tr>
         <td>70%</td>
-        <td></td>
+        <td id='rm70'></td>
         <td>12</td>
     </tr>
      <tr>
         <td>65%</td>
-        <td></td>
+        <td id='rm65'></td>
         <td>16</td>
     </tr>
      <tr>
         <td>60%</td>
-        <td></td>
+        <td id='rm60'></td>
         <td>20</td>
     </tr>
      <tr>
         <td>50%</td>
-        <td></td>
+        <td id='rm50'></td>
         <td>30</td>
     </tr>
     </tbody>
