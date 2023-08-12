@@ -3,7 +3,15 @@ from django.http import HttpRequest
 from articles.models import BaseArticle
 
 
+def articles_list(request: HttpRequest):
+    context = {'title': 'Статьи'}
+    return render(request, 'articles/articles.html', context=context)
+
+
 def about(request: HttpRequest):
+    """
+    Представление статьи "О нас"
+    """
     body_text = BaseArticle.objects.filter(slug='about')
     context = {
         'title': "О нас",

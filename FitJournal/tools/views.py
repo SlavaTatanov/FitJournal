@@ -3,4 +3,5 @@ from django.http import HttpRequest
 
 
 def calculator_1rm(request: HttpRequest):
-    return render(request, 'tools/calculator_1rm.html')
+    context = {'title': 'Расчет одноповторного максимума'}
+    return render(request, 'tools/calculator_1rm.html', context=context)

@@ -26,5 +26,6 @@ urlpatterns = [
     path('', index, name='index'),
     path('login/', login, name='login'),
     path('about', about, name='about'),
+    path('articles/', include('articles.urls', namespace='articles')),
     path('tools/', include('tools.urls', namespace='tools'))
 ]
