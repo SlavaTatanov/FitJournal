@@ -1,10 +1,24 @@
 from django.shortcuts import render
 from django.http import HttpRequest
-from articles.models import BaseArticle
+from articles.models import BaseArticle, Article
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def articles_list(request: HttpRequest):
-    context = {'title': 'Статьи'}
+    """
+    Представление обрабатывает список статей
+    """
+    # Извлекаем все статьи
+    all_articles = Article.published.all()
+    # Указываем какие объекты разбивать на странице и по сколько
+    paginator = Paginator(all_articles, 1)
+    # Берем параметры с гет запроса, если их нет дефолтное 1
+    page_number = request.GET.get('page', 1)
+    try:
+        articles_page = paginator.page(page_number)
+    except EmptyPage or PageNotAnInteger:
+        articles_page = paginator.page(1)
+    context = {'title': 'Статьи', 'articles': articles_page}
     return render(request, 'articles/articles.html', context=context)
 
 

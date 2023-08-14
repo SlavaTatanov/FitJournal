@@ -1,6 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.db.models import Manager
+
+
+class PublishedArticleManager(Manager):
+    """
+    Определяем модельный менеджер, который извлекает только опуликованные
+    """
+
+    def get_queryset(self):
+        return super().get_queryset().filter(status=Article.Status.PUBLISHED)
 
 
 class Categories(models.Model):
@@ -46,6 +56,10 @@ class Article(AbstractBaseArticle):
     status = models.CharField(max_length=2,
                               choices=Status.choices,
                               default=Status.DRAFT)
+
+    # Модельные менеджеры
+    objects = Manager()
+    published = PublishedArticleManager()
 
     class Meta:
         indexes = [

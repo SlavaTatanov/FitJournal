@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Список статей</h1>
+  {% for article in articles %}
+        <h2>
+            <a href="{{ article.get_absolute_url }}">
+                {{ article.title }}
+            </a>
+        </h2>
+        {{ article.body | truncatewords:50 | linebreaks }}
+        <p>Категория: {{article.category}}</p>
+        <hr>
+    {% endfor %}
+    {% include 'pagination.html' with page=articles %}
 {% endblock %}
