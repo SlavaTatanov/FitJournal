@@ -7,14 +7,18 @@ function calculate1RM (weight, reps) {
   return res.toFixed(1);
 }
 
-function get1RM() {
+function get1RMCalc() {
   /**
    * Функиця забирает значения из input полей, делает расчет и заполняет таблицу
    */
 
+  // Берем элементы inputs
+  var weightEl = document.getElementById("weight");
+  var repsEl = document.getElementById("reps");
+
   // Берем значения из input
-  let weight = document.getElementById("weight").value;
-  let reps = document.getElementById("reps").value;
+  let weight = weightEl.value;
+  let reps = repsEl.value;
 
   // Выполняем расчет
   let res = calculate1RM(Number(weight), Number(reps));
@@ -31,5 +35,80 @@ function get1RM() {
     coeff = Number(coeff);
     let rm = document.getElementById(td_id[i]);
     rm.innerHTML = (Number(res) * coeff).toFixed(1);
+  }
+}
+
+function checkWeight() {
+  /**
+   * Проверяем поле веса
+   */
+  let el = document.getElementById("weight");
+  let val = el.value;
+  if (!isNaN(val) && val.length > 0) {
+    return true;
+  } else {
+    elementAlert(el);
+    document.getElementById("weightAlert").innerText = "Ошибка ввода";
+    return false;
+  }
+}
+
+function checkReps() {
+  /**
+   * Проверяем поле повторений
+   */
+  let el = document.getElementById("reps");
+  let val = el.value;
+  if (!isNaN(val) && val.length > 0) {
+    return true;
+  } else {
+    elementAlert(el);
+    document.getElementById("repsAlert").innerText = "Ошибка ввода";
+    return false;
+  }
+}
+
+function elementAlert(el) {
+  /**
+   * Окрашивает элемент в красный цвет
+   */
+  el.style.borderColor = "red";
+  el.style.borderWidth = "2px";  
+}
+
+function resetInputAlertWeigth () {
+  /**
+   * Сбрасываем алерт поля при фокусе
+   */
+  let el = document.getElementById("weight");
+  resetInputAlert(el);
+  document.getElementById("weightAlert").innerText = "";
+}
+
+function resetInputAlertReps () {
+  /**
+   * Сбрасываем алерт поля при фокусе
+   */
+  let el = document.getElementById("reps");
+  resetInputAlert(el);
+  document.getElementById("repsAlert").innerText = "";
+}
+
+function resetInputAlert(el) {
+  /**
+   * Сбрасываем цвет к дефолтному
+   */
+  el.style.borderColor = "#dee2e6";
+  el.style.borderWidth = "1px";
+}
+
+function get1RM() {
+  /**
+   * Расчет одноповторного максимума
+   */
+  let w = checkWeight();
+  let r = checkReps();
+  if (w && r) {
+    get1RMCalc();
   }
 }
