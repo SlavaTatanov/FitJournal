@@ -11,7 +11,7 @@ def articles_list(request: HttpRequest):
     # Извлекаем все статьи
     all_articles = Article.published.all()
     # Указываем какие объекты разбивать на странице и по сколько
-    paginator = Paginator(all_articles, 1)
+    paginator = Paginator(all_articles, 5)
     # Берем параметры с гет запроса, если их нет дефолтное 1
     page_number = request.GET.get('page', 1)
     try:
@@ -32,3 +32,16 @@ def about(request: HttpRequest):
         'body_text': body_text[0].body
     }
     return render(request, 'articles/base_article.html', context=context)
+
+
+def article(req: HttpRequest, article_slug):
+    """
+    Представление обычной статьи.
+    Получаем первую статью с данным slug.
+    Добавляем title/
+    """
+    article_obj = Article.published.filter(slug=article_slug).first()
+    context = {'article': article_obj,
+               'title': article_obj.title}
+    return render(req, 'articles/article.html', context=context)
+

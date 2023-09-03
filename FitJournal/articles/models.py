@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.db.models import Manager
+from django.shortcuts import reverse
 
 
 class PublishedArticleManager(Manager):
@@ -37,6 +38,8 @@ class AbstractBaseArticle(models.Model):
     def __str__(self):
         return self.title
 
+    objects = Manager()
+
 
 class BaseArticle(AbstractBaseArticle):
     pass
@@ -65,4 +68,7 @@ class Article(AbstractBaseArticle):
         indexes = [
             models.Index(fields=['-created', 'category']),
         ]
+
+    def get_absolute_url(self):
+        return reverse("articles:article", kwargs={'article_slug': self.slug})
 
