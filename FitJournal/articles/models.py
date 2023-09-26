@@ -32,6 +32,7 @@ class AbstractBaseArticle(models.Model):
     Базовая модель для сервисных статей, о нас, политика приватности и прочее
     """
     title = models.CharField(max_length=250)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     slug = models.SlugField(max_length=250, unique=True)
     body = models.TextField()
 

@@ -1,15 +1,16 @@
 {% extends "base.html" %}
+{% load custom_tags %}
 
 {% block content %}
-  {% for article in articles %}
-        <h2>
-            <a href="{{ article.get_absolute_url }}">
-                {{ article.title }}
-            </a>
-        </h2>
-        {{ article.body | truncatewords:50 | linebreaks }}
-        <p>Категория: {{article.category}}</p>
-        <hr>
-    {% endfor %}
-    {% include 'pagination.html' with page=articles %}
+{% for article in articles %}
+<h2>
+    <a href="{{ article.get_absolute_url }}">
+        {{ article.title }}
+    </a>
+</h2>
+{{ article.body | markdown |truncatewords_html:50}}
+{% include "articles/article_footer.html" %}
+<hr>
+{% endfor %}
+{% include 'pagination.html' with page=articles %}
 {% endblock %}

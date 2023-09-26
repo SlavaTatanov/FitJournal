@@ -19,14 +19,16 @@ from django.urls import path, include
 
 from trainings.views import index
 from articles.views import about
-from users.views import login, register
+from users.views import login, register, user_profile, logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('login/', login, name='login'),
     path('register/', register, name='register'),
+    path('logout/', logout, name='logout'),
     path('about/', about, name='about'),
     path('articles/', include('articles.urls', namespace='articles')),
-    path('tools/', include('tools.urls', namespace='tools'))
+    path('tools/', include('tools.urls', namespace='tools')),
+    path('<username>/', user_profile, name='profile')
 ]

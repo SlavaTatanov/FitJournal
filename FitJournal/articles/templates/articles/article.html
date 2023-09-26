@@ -1,6 +1,9 @@
 {% extends "base.html" %}
+{% load custom_tags %}
 
 {% block content %}
   <h1 style="text-align: center">{{ article.title }}</h1>
-  <p>{{article.body | linebreaks}}</p>
+  <p>{{article.body | markdown}}</p>
+  <hr>
+  {% include "articles/article_footer.html" %}
 {% endblock %}

@@ -8,8 +8,12 @@ def articles_list(request: HttpRequest):
     """
     Представление обрабатывает список статей
     """
-    # Извлекаем все статьи
-    all_articles = Article.published.all()
+    # Смотрим есть ли гет параметр, если есть фильтруем по нему
+    category = request.GET.get("category")
+    if category:
+        all_articles = Article.published.filter(category__title=category)
+    else:
+        all_articles = Article.published.all()
     # Указываем какие объекты разбивать на странице и по сколько
     paginator = Paginator(all_articles, 5)
     # Берем параметры с гет запроса, если их нет дефолтное 1

@@ -36,6 +36,20 @@
                         максимум</a></li>
                 </ul>
             </div>
+            {% if request.user.is_authenticated %}
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    {{ request.user.username }}
+                </a>
+                <ul class="dropdown-menu shadow p-3 mb-5 bg-white">
+                    <li><a class="dropdown-item" href="{% url 'profile' request.user.username %}">Профиль</a></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Выход</a></li>
+                </ul>
+            </div>
+            {% else %}
+            <a class="nav-link" href="{% url 'login' %}">Вход</a>
+            {% endif %}
         </div>
     </div>
 </nav>

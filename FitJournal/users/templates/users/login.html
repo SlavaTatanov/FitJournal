@@ -15,7 +15,12 @@
                     <label for="{{ form.password.id_for_label }}">Пароль</label>
                     {{ form.password }}
                 </div>
-                <button type="submit" class="btn btn-primary my-4" style="background:#fff; color:black">Авторизация</button>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                  <button type="submit" class="btn btn-primary my-4" style="background:#fff; color:black">Авторизация</button>
+                </div>
+                <p style="display: flex; justify-content: center; align-items: center; line-height: 1; color: white;">Нет аккаунта?
+                      <a href="{% url 'register' %}" style="color: silver; margin: 10px" >Зарегистрироваться!</a>
+                  </p>
             </form>
         </div>
     </div>

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% load custom_tags %}
 
 {% block content %}
   <h1 style="text-align: center">О нас</h1>
-  <p>{{body_text | linebreaks}}</p>
+  <p>{{body_text | markdown}}</p>
 {% endblock %}

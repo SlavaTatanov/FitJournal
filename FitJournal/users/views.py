@@ -32,3 +32,16 @@ def register(request: HttpRequest):
     # Если метод GET передать форму
     context = {'form': UserRegistrationForm()}
     return render(request, 'users/register.html', context=context)
+
+
+def user_profile(req: HttpRequest, username):
+    context = {'user': username}
+    return render(req, 'users/user_profile.html', context)
+
+
+def logout(req: HttpRequest):
+    """
+    Представление для выхода из профиля пользователя
+    """
+    auth.logout(req)
+    return HttpResponseRedirect(reverse('index'))

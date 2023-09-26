@@ -1,0 +1,8 @@
+<div style="display: flex; justify-content: space-between;">
+    <p>Категория:
+        <a href="{% url 'articles:articles-list'%}?category={{article.category}}" style="margin-left: 10px;"> {{ article.category }} </a>
+    </p>
+    <p>Автор:
+        <a href="#" style="margin-left: 10px;"> {{ article.author }} </a>
+    </p>
+</div>
