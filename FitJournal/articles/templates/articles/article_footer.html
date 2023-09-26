@@ -2,7 +2,11 @@
     <p>Категория:
         <a href="{% url 'articles:articles-list'%}?category={{article.category}}" style="margin-left: 10px;"> {{ article.category }} </a>
     </p>
+    <div style="display: flex; justify-content: space-between;">
     <p>Автор:
-        <a href="#" style="margin-left: 10px;"> {{ article.author }} </a>
+        <a href="#" style="margin-left: 5px;"> {{ article.author }} </a>
     </p>
+    <p style="margin-left: 5px;">/ Дата: {{ article.created|date:'d M Y'}}</p>
+    </div>
+
 </div>
