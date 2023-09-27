@@ -30,5 +30,5 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('articles/', include('articles.urls', namespace='articles')),
     path('tools/', include('tools.urls', namespace='tools')),
-    path('<username>/', user_profile, name='profile')
+    path('profile/<username>/', user_profile, name='profile')
 ]

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpRequest, HttpResponseRedirect
 from django.contrib import auth
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 from users.forms import UserLoginForm, UserRegistrationForm
 
@@ -35,8 +36,19 @@ def register(request: HttpRequest):
 
 
 def user_profile(req: HttpRequest, username):
-    context = {'user': username}
-    return render(req, 'users/user_profile.html', context)
+    user_in_db = User.objects.filter(username=username)
+    if user_in_db:
+        if req.user.is_authenticated:
+            current_user = req.user.get_username()
+        else:
+            current_user = None
+        context = {'user': username}
+        if current_user and current_user == username:
+            return render(req, 'users/user_profile.html', context)
+        else:
+            return render(req, 'users/public_user_profile.html', context)
+    else:
+        return render(req, 'users/not_user.html')
 
 
 def logout(req: HttpRequest):
