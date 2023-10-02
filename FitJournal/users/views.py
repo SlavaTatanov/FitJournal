@@ -17,9 +17,10 @@ def login(request: HttpRequest):
             if user:
                 auth.login(request, user)  # Если такой юзер есть, то авторизуем
                 return HttpResponseRedirect(reverse('index'))
-            else:
-                print("Такого юзера нет")
-    context = {'form': UserLoginForm()}
+        else:
+            context = {'form': form}
+    else:
+        context = {'form': UserLoginForm()}
     return render(request, 'users/login.html', context=context)
 
 
@@ -30,8 +31,12 @@ def register(request: HttpRequest):
             # Если данные валидные то сохранить юзера
             form.save()
             return HttpResponseRedirect(reverse('login'))
+        else:
+            # Если не прошла валидация вернем форму с ошибками
+            context = {'form': form}
     # Если метод GET передать форму
-    context = {'form': UserRegistrationForm()}
+    else:
+        context = {'form': UserRegistrationForm()}
     return render(request, 'users/register.html', context=context)
 
 
