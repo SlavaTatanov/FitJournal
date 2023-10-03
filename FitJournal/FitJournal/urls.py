@@ -19,7 +19,7 @@ from django.urls import path, include
 
 from trainings.views import index
 from articles.views import about
-from users.views import login, register, user_profile, logout
+from users.views import login, register, user_profile, logout, user_settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,5 +30,6 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('articles/', include('articles.urls', namespace='articles')),
     path('tools/', include('tools.urls', namespace='tools')),
-    path('profile/<username>/', user_profile, name='profile')
+    path('profile/<username>/', user_profile, name='profile'),
+    path('profile/settings', user_settings, name='profile_settings')
 ]

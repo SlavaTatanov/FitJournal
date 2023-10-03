@@ -62,3 +62,15 @@ def logout(req: HttpRequest):
     """
     auth.logout(req)
     return HttpResponseRedirect(reverse('index'))
+
+
+def user_settings(req: HttpRequest):
+    """
+    Представление для настроек профиля пользователя
+    """
+    if req.user.is_authenticated:
+        user = req.user.get_username()
+        context = {'user': user}
+        return render(req, 'users/user_settings.html', context=context)
+    else:
+        return HttpResponseRedirect(reverse('index'))
