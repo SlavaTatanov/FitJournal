@@ -14,6 +14,10 @@ def articles_list(request: HttpRequest):
         all_articles = Article.published.filter(category__title=category)
     else:
         all_articles = Article.published.all()
+    # Смотрим есть ли гет параметр автор, если есть фильтруем
+    author = request.GET.get("author")
+    if author:
+        all_articles = all_articles.filter(author__username=author)
     # Указываем какие объекты разбивать на странице и по сколько
     paginator = Paginator(all_articles, 5)
     # Берем параметры с гет запроса, если их нет дефолтное 1
