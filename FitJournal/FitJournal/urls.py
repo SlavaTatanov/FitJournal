@@ -16,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
 
 from trainings.views import index
 from articles.views import about
 from users.views import login, register, user_profile, logout, user_settings
+from django.conf import settings
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,5 +34,10 @@ urlpatterns = [
     path('articles/', include('articles.urls', namespace='articles')),
     path('tools/', include('tools.urls', namespace='tools')),
     path('profile/<username>/', user_profile, name='profile'),
-    path('profile/settings', user_settings, name='profile_settings')
+    path('profile/settings', user_settings, name='profile_settings'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
+
+if settings.DEBUG:
+    # Добавляем локальный путь для медиа файлов если локальная отладка, но можно добавлять и на основном
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
