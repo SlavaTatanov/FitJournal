@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django import forms
 
 
@@ -17,6 +18,19 @@ class UserLoginForm(AuthenticationForm):
     class Meta:
         model = User
         fields = ('username', 'password')
+
+    def clean(self):
+        """
+        Кастомный метода валидации для поля
+        """
+        user = self.cleaned_data['username']
+        if not User.objects.filter(username=user).exists():
+            msg = ValidationError("Такого пользователя не существует")
+            self.add_error("username", msg)
+        user_pass = self.cleaned_data['password']
+        if not User.objects.filter(username="SlavaTatanov")[0].check_password(user_pass):
+            self.add_error("password", ValidationError("Неверный пароль"))
+        return self.cleaned_data
 
 
 class UserRegistrationForm(UserCreationForm):
