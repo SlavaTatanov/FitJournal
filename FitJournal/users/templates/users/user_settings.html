@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Настройки для: {{ user }}</h1>
+    <h1>Настройки {{ user }}</h1>
+    <hr/>
+    <div>
+    <form action="#" method="post">
+    {{ profile_form.as_p }}
+    <button type="submit" class="btn btn-primary my-4">Сохранить</button>
+    </form>
+    </div>
 {% endblock %}

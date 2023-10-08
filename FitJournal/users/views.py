@@ -4,7 +4,7 @@ from django.contrib import auth
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-from users.forms import UserLoginForm, UserRegistrationForm
+from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 
 
 def login(request: HttpRequest):
@@ -68,9 +68,10 @@ def user_settings(req: HttpRequest):
     """
     Представление для настроек профиля пользователя
     """
+    form = UserProfileForm()
     if req.user.is_authenticated:
         user = req.user.get_username()
-        context = {'user': user}
+        context = {'user': user, 'profile_form': form}
         return render(req, 'users/user_settings.html', context=context)
     else:
         return HttpResponseRedirect(reverse('index'))

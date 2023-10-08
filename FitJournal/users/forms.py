@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from .models import UserProfile
 from django import forms
 
 
@@ -54,3 +55,14 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
+
+
+class UserProfileForm(forms.ModelForm):
+    height = forms.IntegerField(label="Рост")
+    weight = forms.FloatField(label="Вес")
+
+    class Meta:
+        model = UserProfile
+        fields = ('height', 'weight')
+
+
