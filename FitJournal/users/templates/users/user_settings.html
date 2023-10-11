@@ -1,12 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Настройки {{ user }}</h1>
-    <hr/>
-    <div>
+<h1>Настройки {{ user }}</h1>
+<hr/>
+<div>
     <form action="#" method="post">
-    {{ profile_form.as_p }}
-    <button type="submit" class="btn btn-primary my-4">Сохранить</button>
+        {% csrf_token %}
+        <div style="display: flex;">
+            <div style="padding-right: 5vw;">
+                {% for field in profile_form %}
+                <p>{{ field.label }}:</p>
+                {% endfor %}
+            </div>
+            <div>
+                {% for field in profile_form %}
+                <p>{{ field }}</p>
+                {% endfor %}
+            </div>
+
+        </div>
+        <button type="submit" class="btn btn-primary my-4">Сохранить</button>
     </form>
-    </div>
+</div>
 {% endblock %}
