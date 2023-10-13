@@ -8,7 +8,17 @@
         {{ article.title }}
     </a>
 </h2>
-{{ article.body | markdown |truncatewords_html:50}}
+<div style="display: flex; padding-bottom: 1vh;">
+    {% if article.title_image %}
+    <img src="{{article.title_image.url}}" style="height: 15vw; max-width: 40vw; padding-right: 2vw;">
+    {% endif %}
+    {% if article.summary %}
+    {{ article.summary}}
+    {% else %}
+    {{ article.body | markdown |truncatewords_html:50}}
+    {% endif %}
+</div>
+
 {% include "articles/article_footer.html" %}
 <hr>
 {% endfor %}

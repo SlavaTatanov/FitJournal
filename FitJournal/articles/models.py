@@ -56,6 +56,8 @@ class Article(AbstractBaseArticle):
         DRAFT = 'DF', 'Draft'
 
     category = models.ForeignKey(to=Categories, on_delete=models.PROTECT, default=0)
+    summary = models.CharField(max_length=500, blank=True, default="")
+    title_image = models.ImageField(upload_to="articles/uploads/article_title_image/", null=True)
     created = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=2,
                               choices=Status.choices,
