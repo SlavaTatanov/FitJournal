@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpRequest, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponseRedirect, HttpResponse
 from django.contrib import auth
 from django.urls import reverse
 from django.contrib.auth.models import User
+from .models import UserProfile
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 
@@ -68,10 +69,18 @@ def user_settings(req: HttpRequest):
     """
     Представление для настроек профиля пользователя
     """
-    form = UserProfileForm()
-    if req.user.is_authenticated:
-        user = req.user.get_username()
-        context = {'user': user, 'profile_form': form}
-        return render(req, 'users/user_settings.html', context=context)
-    else:
-        return HttpResponseRedirect(reverse('index'))
+    if req.method == "POST":
+        if req.user.is_authenticated:
+            instance_profile = UserProfile.objects.get(user=req.user)
+            form = UserProfileForm(data=req.POST, instance=instance_profile)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse("profile_settings"))
+    elif req.method == "GET":
+        form = UserProfileForm()
+        if req.user.is_authenticated:
+            user = req.user.get_username()
+            context = {'user': user, 'profile_form': form}
+            return render(req, 'users/user_settings.html', context=context)
+        else:
+            return HttpResponseRedirect(reverse('index'))

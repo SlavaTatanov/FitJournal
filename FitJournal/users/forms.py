@@ -59,10 +59,11 @@ class UserRegistrationForm(UserCreationForm):
 
 class UserProfileForm(forms.ModelForm):
     height = forms.IntegerField(label="Рост")
-    weight = forms.FloatField(label="Вес")
+    gender = forms.ChoiceField(label="Пол",
+                               choices=UserProfile.Gender.choices)
 
     class Meta:
         model = UserProfile
-        fields = ('height', 'weight')
+        fields = ('height', 'gender')
 
 
