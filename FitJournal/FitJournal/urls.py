@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 
 from trainings.views import index
 from articles.views import about
-from users.views import login, register, user_profile, logout, user_settings
+from users.views import login, register, user_profile, logout, user_settings, test_view
 from django.conf import settings
 
 
@@ -35,6 +35,7 @@ urlpatterns = [
     path('tools/', include('tools.urls', namespace='tools')),
     path('profile/<username>/', user_profile, name='profile'),
     path('profile/settings', user_settings, name='profile_settings'),
+    path('profile/test', test_view, name='test'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 

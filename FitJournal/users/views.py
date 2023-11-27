@@ -3,6 +3,7 @@ from django.http import HttpRequest, HttpResponseRedirect, HttpResponse
 from django.contrib import auth
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
@@ -17,6 +18,9 @@ def login(request: HttpRequest):
             user = auth.authenticate(username=username, password=password)
             if user:
                 auth.login(request, user)  # Если такой юзер есть, то авторизуем
+                next_page = request.POST['next']  # Если был параметр next перенаправляем туда
+                if next_page:
+                    return HttpResponseRedirect(next_page)
                 return HttpResponseRedirect(reverse('index'))
         else:
             context = {'form': form}
@@ -84,3 +88,8 @@ def user_settings(req: HttpRequest):
             return render(req, 'users/user_settings.html', context=context)
         else:
             return HttpResponseRedirect(reverse('index'))
+
+
+@login_required
+def test_view(req: HttpRequest):
+    return render(req, 'test.html', {'msg': 'Это тестовое сообщение'})

@@ -14,6 +14,7 @@
                 </div>
                 <div> {{ field.errors }} </div>
                 {% endfor %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
                 <div style="display: flex; justify-content: center; align-items: center;">
                   <button type="submit" class="btn btn-primary my-4" style="background:#fff; color:black">Авторизация</button>
                 </div>
