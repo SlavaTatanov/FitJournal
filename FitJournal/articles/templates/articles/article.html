@@ -4,6 +4,8 @@
 {% block content %}
   <h1 style="text-align: center">{{ article.title }}</h1>
   <p>{{article.body | markdown}}</p>
-  <hr>
-  {% include "articles/article_footer.html" %}
+  <div style="clear:both">
+    <hr>
+    {% include "articles/article_footer.html" %}
+  </div>
 {% endblock %}
