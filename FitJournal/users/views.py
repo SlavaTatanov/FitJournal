@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponse
 from django.contrib import auth
 from django.urls import reverse
@@ -10,6 +10,7 @@ from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 
 
 def login(request: HttpRequest):
+    context = {'form': UserLoginForm()}
     if request.method == 'POST':
         form = UserLoginForm(data=request.POST)  # Создаем форму и передаем в нее дату, для дальнейшей обработки
         if form.is_valid():  # Проверяем валидность
@@ -24,8 +25,6 @@ def login(request: HttpRequest):
                 return HttpResponseRedirect(reverse('index'))
         else:
             context = {'form': form}
-    else:
-        context = {'form': UserLoginForm()}
     return render(request, 'users/login.html', context=context)
 
 
@@ -69,6 +68,7 @@ def logout(req: HttpRequest):
     return HttpResponseRedirect(reverse('index'))
 
 
+@login_required
 def user_settings(req: HttpRequest):
     """
     Представление для настроек профиля пользователя
@@ -79,15 +79,19 @@ def user_settings(req: HttpRequest):
             form = UserProfileForm(data=req.POST, instance=instance_profile)
             if form.is_valid():
                 form.save()
-                return HttpResponseRedirect(reverse("profile_settings"))
+                response = redirect("profile_settings")
+                return response
     elif req.method == "GET":
-        form = UserProfileForm()
-        if req.user.is_authenticated:
-            user = req.user.get_username()
-            context = {'user': user, 'profile_form': form}
-            return render(req, 'users/user_settings.html', context=context)
-        else:
-            return HttpResponseRedirect(reverse('index'))
+        # Если метод запроса гет, то мы делаем запрос к базе данных и заполняем форму.
+        # Если данных нет, то вернем пустую форму, если есть - заполненную
+        try:
+            profile = UserProfile.objects.get(user=req.user)
+        except UserProfile.DoesNotExist:
+            profile = None
+        form = UserProfileForm(instance=profile)
+        user = req.user.get_username()
+        context = {'user': user, 'profile_form': form}
+        return render(req, 'users/user_settings.html', context=context)
 
 
 @login_required

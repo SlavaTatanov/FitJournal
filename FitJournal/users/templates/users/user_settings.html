@@ -3,6 +3,16 @@
 {% block content %}
 <h1>Настройки {{ user }}</h1>
 <hr/>
+<div style="display: flex;">
+    <div style="padding-right: 5vw;">
+        <p>Пароль:</p>
+    </div>
+    <div>
+        <a href="#">Сменить</a>
+    </div>
+</div>
+<h2>Физические данные</h2>
+<hr/>
 <div>
     <form action="#" method="post">
         {% csrf_token %}
