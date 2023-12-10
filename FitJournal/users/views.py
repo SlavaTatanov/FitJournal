@@ -4,7 +4,7 @@ from django.contrib import auth
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile
+from .models import UserProfile, UserWeight
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
 
@@ -82,15 +82,24 @@ def user_settings(req: HttpRequest):
                 response = redirect("profile_settings")
                 return response
     elif req.method == "GET":
-        # Если метод запроса гет, то мы делаем запрос к базе данных и заполняем форму.
-        # Если данных нет, то вернем пустую форму, если есть - заполненную
+        # Если метод запроса GET, то мы делаем запрос к базе данных и заполняем форму.
+        # Если данных нет, то вернем пустую форму, если есть - заполненную.
         try:
             profile = UserProfile.objects.get(user=req.user)
         except UserProfile.DoesNotExist:
             profile = None
         form = UserProfileForm(instance=profile)
         user = req.user.get_username()
-        context = {'user': user, 'profile_form': form}
+
+        # Получаем данные по весу пользователя
+        try:
+            user_weight_profile = UserWeight.objects.get(user=req.user)
+            user_weight = user_weight_profile.weight
+        except UserWeight.DoesNotExist:
+            user_weight = "Нет данных"
+
+        # Собираем контекст и отправляем страницу
+        context = {'user': user, 'profile_form': form, 'user_weight': user_weight}
         return render(req, 'users/user_settings.html', context=context)
 
 

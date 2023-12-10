@@ -37,6 +37,7 @@ class UserWeight(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=False)
     weight_date = models.DateTimeField(default=timezone.now)
+    weight = models.FloatField()
 
     class Meta:
         """
