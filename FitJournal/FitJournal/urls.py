@@ -33,6 +33,7 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('articles/', include('articles.urls', namespace='articles')),
     path('tools/', include('tools.urls', namespace='tools')),
+    path('profile/', include('users.urls', namespace='users')),
     path('profile/<username>/', user_profile, name='profile'),
     path('profile/settings', user_settings, name='profile_settings'),
     path('profile/test', test_view, name='test'),
