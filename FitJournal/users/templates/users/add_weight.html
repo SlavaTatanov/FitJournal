@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Ввод веса{% endblock %}
+
+{% block content %}
+<h2>Добавить измерения веса</h2>
+<hr>
+<form method="post">
+    {% csrf_token %}
+    <div style="margin-bottom: 1vh;">
+        {{ form.weight_date.errors }}
+        <label for="{{form.weight_date.id_for_label}}">Дата</label>
+        {{ form.weight_date }}
+    </div>
+    <div>
+        {{ form.weight.errors }}
+        <label for="{{form.weight.id_for_label}}">Вес</label>
+        {{ form.weight }}
+    </div>
+    <button type="submit" class="btn btn-primary my-4">Сохранить</button>
+</form>
+{% endblock %}

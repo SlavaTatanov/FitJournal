@@ -35,8 +35,8 @@ class UserWeight(models.Model):
     """
     Модель описывающая вес пользователя в определенный промежуток времени
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=False)
-    weight_date = models.DateTimeField(default=timezone.now)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=False)
+    weight_date = models.DateField(default=timezone.now, unique=True)
     weight = models.FloatField()
 
     class Meta:

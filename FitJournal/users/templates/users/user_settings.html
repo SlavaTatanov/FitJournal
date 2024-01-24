@@ -32,7 +32,7 @@
         <!-- Элементы не относящиеся к форме -->
         <div style="display: flex;">
            <p style="padding-right: 1.9vw;">Текущий вес:</p>
-           <p> {{user_weight}} кг. <a href="#">Журнал веса</a> </p>
+           <p> {{user_weight}} кг. <a href="{% url 'users:user_weight' %}">Журнал веса</a> </p>
         </div>
         <button type="submit" class="btn btn-primary my-4">Сохранить</button>
     </form>

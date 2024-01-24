@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile, UserWeight
 
-from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm, UserWeightForm
 
 
 def login(request: HttpRequest):
@@ -93,7 +93,7 @@ def user_settings(req: HttpRequest):
 
         # Получаем данные по весу пользователя
         try:
-            user_weight_profile = UserWeight.objects.get(user=req.user)
+            user_weight_profile = UserWeight.objects.filter(user=req.user).order_by("-weight_date")[0]
             user_weight = user_weight_profile.weight
         except UserWeight.DoesNotExist:
             user_weight = "Нет данных"
@@ -106,3 +106,22 @@ def user_settings(req: HttpRequest):
 @login_required
 def test_view(req: HttpRequest):
     return render(req, 'test.html', {'msg': 'Это тестовое сообщение'})
+
+
+@login_required
+def weight_journal(req: HttpRequest):
+    return render(req, 'users/weight_journal.html')
+
+
+@login_required
+def add_weight(req: HttpRequest):
+    if req.method == "POST":
+        form = UserWeightForm(data=req.POST)
+        if form.is_valid():
+            # Сохраняем форму, прицепляем к ней экземпляр пользователя и сохраняем в базу данных.
+            form.save(commit=False)
+            form.instance.user = req.user
+            form.save()
+    else:
+        form = UserWeightForm()
+    return render(req, 'users/add_weight.html', {'form': form})

@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from .models import UserProfile
+from .models import UserProfile, UserWeight
 from django import forms
 
 
@@ -67,3 +67,10 @@ class UserProfileForm(forms.ModelForm):
         fields = ('height', 'gender')
 
 
+class UserWeightForm(forms.ModelForm):
+    weight_date = forms.DateField(label="Дата", widget=forms.DateInput(attrs={'type': 'date'}))
+    weight = forms.FloatField(label="Вес")
+
+    class Meta:
+        model = UserWeight
+        fields = ('weight_date', 'weight')

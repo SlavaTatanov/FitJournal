@@ -16,7 +16,7 @@
     <!-- Custom JS -->
     {% block custom_js %} {% endblock %}
 
-    <title>{{title}}</title>
+    <title>{{title}}{%block title%}{% endblock %}</title>
 
 </head>
 <body>
