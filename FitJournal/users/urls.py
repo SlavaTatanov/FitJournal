@@ -13,5 +13,7 @@ urlpatterns = [
          auth_views.PasswordChangeDoneView.as_view(template_name='users/password_change_done.html'),
          name='password_change_done'),
     path('add_weight/', views.add_weight, name='add_weight'),
-    path('user_weight', views.weight_journal, name='user_weight')
+    path('user_weight/', views.weight_journal, name='user_weight'),
+    path('settings/', views.user_settings, name='profile_settings'),
+    path('<username>/', views.user_profile, name='profile')
 ]
