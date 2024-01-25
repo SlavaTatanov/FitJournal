@@ -57,6 +57,17 @@
 
 <!-- Content -->
 <div class="container mt-4" style="overflow: hidden;">
+    <!-- Сообщения -->
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {{ message|safe }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <!-- Блок контента -->
     {% block content %} {% endblock %}
 </div>
 

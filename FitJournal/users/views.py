@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponse
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -79,7 +79,8 @@ def user_settings(req: HttpRequest):
             form = UserProfileForm(data=req.POST, instance=instance_profile)
             if form.is_valid():
                 form.save()
-                response = redirect("profile_settings")
+                response = redirect("users:profile_settings")
+                messages.success(req, "Профиль успешно сохранен!")
                 return response
     elif req.method == "GET":
         # Если метод запроса GET, то мы делаем запрос к базе данных и заполняем форму.
@@ -122,6 +123,7 @@ def add_weight(req: HttpRequest):
             form.save(commit=False)
             form.instance.user = req.user
             form.save()
+            messages.success(req, "Вес успешно добавлен")
     else:
         form = UserWeightForm()
     return render(req, 'users/add_weight.html', {'form': form})
