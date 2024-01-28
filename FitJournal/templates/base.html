@@ -59,7 +59,7 @@
 <div class="container mt-4" style="overflow: hidden;">
     <!-- Сообщения -->
     {% if messages %}
-    <ul>
+    <ul class="message-box">
         {% for message in messages %}
         <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
             {{ message|safe }}

@@ -1,3 +1,10 @@
+:root{
+  --message-padding: 1em;
+  --message-list-style-type: none;
+  --message-border-radius: 0.8em;
+  --message-margin-bottom: 0.3em;
+}
+
 body {
   min-height: 100vh;
 }
@@ -50,3 +57,44 @@ body {
 .my_nal_links a:hover {
   color: silver;
 }
+
+.success {
+  padding: var(--message-padding);
+  list-style-type: var(--message-list-style-type);
+  border-radius: var(--message-border-radius);
+  margin-bottom: var(--message-margin-bottom);
+  background-color: #98FB98;
+  border: solid #32CD32;
+}
+
+.info {
+  padding: var(--message-padding);
+  list-style-type: var(--message-list-style-type);
+  border-radius: var(--message-border-radius);
+  margin-bottom: var(--message-margin-bottom);
+  background-color: #00BFFF;
+  border: solid #1E90FF;
+}
+
+.warning {
+  padding: var(--message-padding);
+  list-style-type: var(--message-list-style-type);
+  border-radius: var(--message-border-radius);
+  margin-bottom: var(--message-margin-bottom);
+  background-color: #F0E68C;
+  border: solid #FFD700;
+}
+
+.error {
+  padding: var(--message-padding);
+  list-style-type: var(--message-list-style-type);
+  border-radius: var(--message-border-radius);
+  margin-bottom: var(--message-margin-bottom);
+  background-color: #CD5C5C;
+  border: solid #FF0000;
+}
+
+.message-box {
+  padding-left: 0;
+}
+
