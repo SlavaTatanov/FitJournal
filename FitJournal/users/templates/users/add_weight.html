@@ -18,5 +18,9 @@
         {{ form.weight }}
     </div>
     <button type="submit" class="btn btn-primary my-4">Сохранить</button>
+
+    <!-- Возврат к журналу веса -->
+    <a href="{% url 'users:user_weight' %}" class="btn btn-primary my-4">Журнал веса</a>
+
 </form>
 {% endblock %}

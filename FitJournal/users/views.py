@@ -1,10 +1,13 @@
+from datetime import timedelta, time
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponse
 from django.contrib import auth, messages
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 from .models import UserProfile, UserWeight
+
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm, UserWeightForm
 
@@ -111,7 +114,37 @@ def test_view(req: HttpRequest):
 
 @login_required
 def weight_journal(req: HttpRequest):
-    return render(req, 'users/weight_journal.html')
+    """
+    Запрашиваем для пользователя данные по его весу, делаем два списка, все запросы и за последние полгода.
+    """
+    # Получаем текущую дату
+    current_date = timezone.now().date()
+    # Получаем дату полгода назад
+    six_month = current_date - timedelta(days=180)
+
+    # Делаем запрос данных по весу для пользователя
+    user_name = req.user
+    weight_data = UserWeight.objects.filter(user=user_name).order_by('-weight_date')
+
+    # Создаем отдельный список для последних 6 месяцев
+    last_six_month_label = []
+    last_six_month_data = []
+    all_label = []
+    all_data = []
+    for item in weight_data:
+        if item.weight_date > six_month:
+            last_six_month_data.insert(0, item.weight)
+            last_six_month_label.insert(0, item.weight_date.isoformat())
+        else:
+            all_data.insert(0, item.weight)
+            all_label.insert(0, item.weight_date.isoformat())
+
+    # Собираем контекст
+    context = {"all_data": all_data + last_six_month_data,
+               "all_label": all_label + last_six_month_label,
+               "last_six_month_data": last_six_month_data,
+               "last_six_month_label": last_six_month_label}
+    return render(req, 'users/weight_journal.html', context=context)
 
 
 @login_required

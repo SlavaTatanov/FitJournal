@@ -1,7 +1,67 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block custom_js %}
+<!-- Загружаем Chart.js адаптер времени и свой js с графиком -->
+<script src="{% static 'js/chart.min.js' %}"></script>
+<script src="{% static 'js/chartjs-adapter-date-fns.bundle.min.js' %}"></script>
+<script src="{% static 'js/weight_chart_script.js' %}"></script>
+{% endblock %}
 
 {% block title %}Журнал веса{% endblock %}
 
 {% block content %}
-<a href="{% url 'users:add_weight' %}">Добавить данные</a>
+<h1>График веса</h1>
+<hr>
+
+<!-- Наш график -->
+<div style="margin-bottom: 0,8em!important;">
+    <canvas id="weight_chart"></canvas>
+</div>
+
+<!-- Скрипт создания графика -->
+<script>
+    chart = createChart ({{ last_six_month_label | safe }}, {{ last_six_month_data}})
+</script>
+
+<!-- Переключатель графика 6 месяцев - все время -->
+<div class="mt-4">
+    <div class="form-check">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"  checked>
+  <label class="form-check-label" for="flexRadioDefault1">
+    6 месяцев
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+  <label class="form-check-label" for="flexRadioDefault2">
+    Все время
+  </label>
+</div>
+</div>
+
+<script>
+    // Получаем ссылки на элементы radio
+    const radio1 = document.getElementById('flexRadioDefault1');
+    const radio2 = document.getElementById('flexRadioDefault2');
+
+    // Добавляем обработчик события change
+    radio1.addEventListener('change', function() {
+        // Вызываем функцию createChart с соответствующими параметрами
+        chart.destroy()
+        chart = createChart({{ last_six_month_label | safe }}, {{ last_six_month_data }});
+    });
+
+    radio2.addEventListener('change', function() {
+        // Вызываем функцию createChart с соответствующими параметрами
+        chart.destroy()
+        chart = createChart({{ all_label | safe }}, {{ all_data}});
+    });
+</script>
+
+<!-- Кнопка добавить вес -->
+<div class="mt-4">
+  <a href="{% url 'users:add_weight' %}" class="btn btn-primary">Добавить данные</a>
+</div>
+
 {% endblock %}
