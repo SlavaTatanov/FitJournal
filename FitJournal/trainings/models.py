@@ -39,3 +39,10 @@ class Exercise(BaseNamedDescriptionModel):
     Модель описывающая упражнение
     """
     type = models.ForeignKey(to=TypeExercise, on_delete=models.PROTECT, default=0)
+
+
+class Activity(BaseNamedDescriptionModel):
+    """
+    Модель описывающая тип активности, бег, силовая тренировка и прочее.
+    """
+    pass
