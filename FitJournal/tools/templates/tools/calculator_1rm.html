@@ -8,13 +8,13 @@
 {% block content %}
 <div class="d-grid gap-3">
     <h1 style="text-align:center; margin-top:10px">Расчет одноповторного максимума</h1>
-    <h4>Вес снаряда</h4>
+    <h4 class="mobile-text-center">Вес снаряда</h4>
     <input class="form-control form-control-lg" id="weight" type="number" required placeholder="Вес в килограммах" onfocus="resetInputAlertWeigth()">
     <p style="color: red; display: block;" id="weightAlert"> </p>
-    <h4>Количество повторов</h4>
+    <h4 class="mobile-text-center">Количество повторов</h4>
     <input class="form-control form-control-lg" id="reps" type="number" placeholder="Количество повторений" onfocus="resetInputAlertReps()">
     <p style="color: red; display: block;" id="repsAlert"> </p>
-    <button type="button" onclick="get1RM()" class="btn btn-primary" style="width:30%; height:120%; margin-top:20px;">Расчет</button>
+    <button type="button" onclick="get1RM()" class="btn btn-primary mobile-btn-center" style="width:30%; height:120%; margin-top:20px;">Расчет</button>
 </div>
 <table class="table" style="margin-top:10vh;">
     <thead>
