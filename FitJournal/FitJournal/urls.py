@@ -34,6 +34,7 @@ urlpatterns = [
     path('articles/', include('articles.urls', namespace='articles')),
     path('tools/', include('tools.urls', namespace='tools')),
     path('profile/', include('users.urls', namespace='users')),
+    path('trainings/', include('trainings.urls', namespace='trainings')),
     path('profile/test', test_view, name='test'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
