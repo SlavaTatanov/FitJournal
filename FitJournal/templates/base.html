@@ -45,6 +45,9 @@
                 </a>
                 <ul class="dropdown-menu shadow p-3 mb-5 bg-white">
                     <li><a class="dropdown-item" href="{% url 'users:profile' request.user.username %}">Профиль</a></li>
+                    {% if request.user.is_superuser %}
+                    <li><a class="dropdown-item" href="{% url 'admin:index' %}">Админ-меню</a></li>
+                    {% endif %}
                     <li><a class="dropdown-item" href="{% url 'users:profile_settings' %}">Настройки</a></li>
                     <li><a class="dropdown-item" href="{% url 'logout' %}">Выход</a></li>
                 </ul>
