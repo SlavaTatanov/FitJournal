@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.utils import timezone
+from trainings.models import Activity
 
 
 class UserProfile(models.Model):
@@ -46,3 +47,24 @@ class UserWeight(models.Model):
         indexes = [
             models.Index(fields=['user', '-weight_date'])
         ]
+
+
+class UserTraining(models.Model):
+    """
+    Модель хранящая тренировку пользователя
+    """
+    # Пользователь
+    user = models.ForeignKey(User, on_delete=models.CASCADE, unique=False)
+    # Дата время тренировки
+    training_date = models.DateTimeField(default=timezone.now, unique=True)
+    # Тип тренировки
+    training_type = models.ForeignKey(Activity, on_delete=models.SET_NULL, null=True, blank=True)
+    # Данные о тренировке в формате JSON
+    exercise_data = models.JSONField(default=dict)
+
+    def __str__(self):
+        """
+        Дружелюбная реализация строкового представления
+        """
+        res = str(self.user) + " " + str(self.training_type) + " " + str(self.training_date)
+        return res
