@@ -2,4 +2,9 @@
 
 {% block content %}
   <h1>Тренировки пользователя</h1>
+  <ul>
+  {% for training in training_data %}
+    <li> {{ training }} </li>
+  {% endfor %}
+  </ul>
 {% endblock %}
