@@ -13,7 +13,10 @@
 {% block content %}
 <h1>График веса</h1>
 <hr>
-
+<!-- Основной div с графиками и данными -->
+<div style="display:flex">
+<div style="width: 60%; margin-right: 5%;">
+<!-- div с графиками -->
 <div>
     <!-- Наш график -->
     <div style="margin-bottom: 0,8em!important;">
@@ -24,22 +27,32 @@
 
 <!-- Скрипт создания графика -->
 <script>
+    {% if data_type == "all" %}
+    chart = createChart({{ all_label | safe }}, {{ all_data}})
+    {% else %}
     chart = createChart ({{ last_six_month_label | safe }}, {{ last_six_month_data}})
+    {% endif %}
 </script>
 
 <!-- Переключатель графика 6 месяцев - все время -->
 <div class="mt-4">
     <div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"  checked>
+    {% if data_type == "all" %}
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+    {% else %}
+    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"  checked>
+    {% endif %}
   <label class="form-check-label" for="flexRadioDefault1">
     6 месяцев
   </label>
 </div>
 <div class="form-check">
+  {% if data_type == "all" %}
+  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+  {% else %}
   <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-  <label class="form-check-label" for="flexRadioDefault2">
-    Все время
-  </label>
+  {% endif %}
+  <label class="form-check-label" for="flexRadioDefault2">Все время</label>
 </div>
 </div>
 
@@ -53,12 +66,14 @@
         // Вызываем функцию createChart с соответствующими параметрами
         chart.destroy()
         chart = createChart({{ last_six_month_label | safe }}, {{ last_six_month_data }});
+        localStorage.setItem('data_type_weight', 'six');
     });
 
     radio2.addEventListener('change', function() {
         // Вызываем функцию createChart с соответствующими параметрами
         chart.destroy()
         chart = createChart({{ all_label | safe }}, {{ all_data}});
+        localStorage.setItem('data_type_weight', 'all');
     });
 </script>
 
@@ -66,5 +81,40 @@
 <div class="mt-4">
   <a href="{% url 'users:add_weight' %}" class="btn btn-primary">Добавить данные</a>
 </div>
+
+</div>
+
+<!-- Список записей -->
+    <div style="display: flex; flex-direction: column; width: 100%">
+    <div class="mb-5">
+        <h2>Записи:</h2>
+        <hr>
+        <table class="table table-striped table-bordered " style="width: 100%;">
+            <thead>
+            <tr>
+                <th scope="col">Дата</th>
+                <th scope="col">Вес</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+        <tbody>
+        {% for data in weight_data_page %}
+        <tr>
+        <td><p>{{ data.weight_date }}</p></td>
+        <td><p>{{ data.weight }}</p></td>
+        <td><a href="#">Удалить</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+        </table>
+    </div>
+    <div style="flex-grow: 1;">
+    {% include 'pagination.html' with page=weight_data_page %}
+    </div>
+    </div>
+
+</div>
+
 
 {% endblock %}

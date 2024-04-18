@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import UserProfile, UserWeight
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 from users.forms import UserLoginForm, UserRegistrationForm, UserProfileForm, UserWeightForm
@@ -126,6 +127,18 @@ def weight_journal(req: HttpRequest):
     user_name = req.user
     weight_data = UserWeight.objects.filter(user=user_name).order_by('-weight_date')
 
+    # Создаем объект Paginator из данных по весу
+    paginator = Paginator(weight_data, 5)
+
+    # Получаем страницу
+    page_number = req.GET.get('page', 1)
+
+    # Получаем набор данных для страницы
+    try:
+        weight_data_page = paginator.page(page_number)
+    except PageNotAnInteger or EmptyPage:
+        weight_data_page = paginator.page(1)
+
     # Создаем отдельный список для последних 6 месяцев
     last_six_month_label = []
     last_six_month_data = []
@@ -139,11 +152,16 @@ def weight_journal(req: HttpRequest):
             all_data.insert(0, item.weight)
             all_label.insert(0, item.weight_date.isoformat())
 
+    # Проверяем есть ли указание о типе графика с данными
+    data_type = req.GET.get('data_type')
+
     # Собираем контекст
     context = {"all_data": all_data + last_six_month_data,
                "all_label": all_label + last_six_month_label,
                "last_six_month_data": last_six_month_data,
-               "last_six_month_label": last_six_month_label}
+               "last_six_month_label": last_six_month_label,
+               "data_type": data_type,
+               "weight_data_page": weight_data_page}
     return render(req, 'users/weight_journal.html', context=context)
 
 
